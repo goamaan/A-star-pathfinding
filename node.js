@@ -13,7 +13,7 @@ class Node {
     this.parent = undefined;
     //Is this Node an obstacle?
     this.obs = false;
-    if (random(1) < 0.1) {
+    if (random(1) < 0.3) {
       this.obs = true;
     }
 

@@ -10,6 +10,12 @@ class BinaryHeap {
     return this.heap[1];
   }
 
+  includes(node) {
+    for (let i = 1; i < this.heap.length; i++) {
+      return this.heap[i] === node ? true : false;
+    }
+  }
+
   bubbleUp() {
     //Finding correct pos. for node
     if (this.heap.length > 1) {
