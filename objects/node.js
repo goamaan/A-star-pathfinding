@@ -17,6 +17,8 @@ class Node {
     if (random(1) < 0.3) {
       this.obs = true;
     }
+    this.start = false;
+    this.end = false;
   }
 
   //Compare to other
@@ -31,11 +33,17 @@ class Node {
   // Display Node
   show(col) {
     if (this.obs) {
-      fill(0);
+      fill("black");
       noStroke();
-      rect(this.x * w, this.y * h, w, h);
+      ellipse(this.x * w + w / 2, this.y * h + h / 2, w / 1.4, h / 1.4);
     } else if (col) {
       fill(col);
+      ellipse(this.x * w + w / 2, this.y * h + h / 2, w / 2, h / 2);
+    } else if (this.start) {
+      fill(0, 255, 0);
+      rect(this.x * w, this.y * h, w, h);
+    } else if (this.end) {
+      fill(255, 0, 0);
       rect(this.x * w, this.y * h, w, h);
     }
   }

@@ -1,6 +1,6 @@
 // Global Scope
-const cols = 30;
-const rows = 30;
+const cols = 50;
+const rows = 50;
 let grid = new Array(cols);
 
 // A* variables
@@ -10,18 +10,26 @@ let w, h;
 let start, end;
 let path = [];
 let current;
+let cnv;
 
 function heuristic(a, b) {
   return dist(a.x, a.y, b.x, b.y);
 }
 
-function setup() {
-  createCanvas(600, 600);
+function centerCanvas() {
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  cnv.position(x, y);
+}
 
+function windowResized() {
+  centerCanvas();
+}
+
+function setupMap() {
   // Grid cell size
   w = width / cols;
   h = height / rows;
-
   //Making the map (2D Array)
   for (let i = 0; i < cols; i++) {
     grid[i] = new Array(rows);
@@ -45,10 +53,12 @@ function setup() {
   end = grid[cols - 1][rows - 1];
   start.obs = false;
   end.obs = false;
+  start.start = true;
+  end.end = true;
   openSet.add(start);
 }
 
-function draw() {
+function Astar() {
   if (openSet.count > 0) {
     //Remove from openSet and add to closedSet
     current = openSet.remove();
@@ -57,6 +67,8 @@ function draw() {
     if (current === end) {
       noLoop();
       console.log("DONE!");
+      div = createDiv("<p>Solved!</p>");
+      div.position(window.innerWidth / 2 - 20, window.innerHeight - 100);
     }
 
     //Check all neighbors
@@ -67,20 +79,9 @@ function draw() {
       if (closedSet.includes(neighbor) || neighbor.obs) {
         continue;
       }
+
       let tempG = current.g + heuristic(neighbor, current);
 
-      //If new path is better, use it
-      // let newPath = false;
-      // if (openSet.includes(neighbor)) {
-      //   if (tempG < neighbor.g) {
-      //     neighbor.g = tempG;
-      //     newPath = true;
-      //   }
-      // } else {
-      //   neighbor.g = tempG;
-      //   newPath = true;
-      //   openSet.add(neighbor);
-      // }
       if (tempG < neighbor.g || !openSet.includes(neighbor)) {
         neighbor.g = tempG;
         neighbor.h = heuristic(neighbor, end);
@@ -90,23 +91,19 @@ function draw() {
           openSet.add(neighbor);
         }
       }
-
-      //New path is better
-
-      // if (newPath) {
-      //   neighbor.h = heuristic(neighbor, end);
-      //   neighbor.f = neighbor.g + neighbor.h;
-      //   neighbor.parent = current;
-      // }
     }
   } else {
-    console.log("no solution");
+    console.log("No Solution!");
     noLoop();
+    div = createDiv("<p>No Solution!</p>");
+    div.position(window.innerWidth / 2 - 20, window.innerHeight - 100);
     return;
   }
+}
 
+function drawMap() {
   // Draw current state of everything
-  background(255);
+  background((36, 36, 36));
 
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
@@ -115,14 +112,16 @@ function draw() {
   }
 
   for (var i = 0; i < closedSet.length; i++) {
-    closedSet[i].show(color(255, 0, 0, 50));
+    closedSet[i].show(color("#FFA9E7"));
   }
 
   for (var i = 0; i < openSet.heap.length; i++) {
-    openSet.heap[i].show(color(0, 255, 0, 50));
+    openSet.heap[i].show(color("#A049ED"));
   }
+}
 
-  // Find the path by working backwards
+function drawPath() {
+  // Find the path by going backwards
   path = [];
   var temp = current;
   path.push(temp);
@@ -137,11 +136,33 @@ function draw() {
 
   //Drawing path as continuous line
   noFill();
-  stroke(255, 0, 200);
+  stroke("#21FF3B");
   strokeWeight(w / 4);
   beginShape();
   for (var i = 0; i < path.length; i++) {
     vertex(path[i].x * w + w / 2, path[i].y * h + h / 2);
   }
   endShape();
+}
+
+function setup() {
+  cnv = createCanvas(600, 600);
+  cnv.parent("container");
+  centerCanvas();
+  setupMap();
+  //   button = createButton("Reset");
+  //   button.position(19, 19);
+  //   button.mousePressed(() => {
+  //     clear();
+  //     setup();
+  //     draw();
+  //     loop();
+  //     noLoop();
+  //   });
+}
+
+function draw() {
+  Astar();
+  drawMap();
+  drawPath();
 }
