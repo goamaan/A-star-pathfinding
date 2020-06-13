@@ -4,6 +4,8 @@
 
 #### p5.js framework was used to visualize the pathfinding process
 
+[Live implementation here](https://astar-visualization.netlify.app/)
+
 The A\* (A-star) searh algorithm is a graph traversal and pathfinding algorithm used often due to its optimizations
 
 It can be considered an extension of the famous Djikstra's Algorithm.
