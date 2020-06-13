@@ -12,7 +12,7 @@ class Node {
     this.neighbors = [];
     //Previous node to trace path
     this.parent;
-    //Is this Node an obstacle?
+    //Is node an obstacle?
     this.obs = false;
     if (random(1) < 0.3) {
       this.obs = true;
@@ -33,18 +33,18 @@ class Node {
   // Display Node
   show(col) {
     if (this.obs) {
-      fill("black");
+      fill('black');
       noStroke();
-      ellipse(this.x * w + w / 2, this.y * h + h / 2, w / 1.4, h / 1.4);
+      ellipse(this.x * w + w / 2, this.y * h + h / 2, w / 1.6, h / 1.6);
     } else if (col) {
       fill(col);
-      ellipse(this.x * w + w / 2, this.y * h + h / 2, w / 2, h / 2);
+      ellipse(this.x * w + w / 2, this.y * h + h / 2, w / 1.8, h / 1.8);
     } else if (this.start) {
       fill(0, 255, 0);
-      rect(this.x * w, this.y * h, w, h);
+      rect(this.x * w, this.y * h, w / 1.5, h / 1.5);
     } else if (this.end) {
       fill(255, 0, 0);
-      rect(this.x * w, this.y * h, w, h);
+      rect(this.x * w, this.y * h, w / 1.5, h / 1.5);
     }
   }
 

@@ -1,5 +1,5 @@
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   text-align: center;
   background-color: rgb(36, 36, 36);
   color: white;
@@ -18,4 +18,26 @@ h1 {
 div p {
   font-size: larger;
   margin-top: 40px;
+}
+
+#visitedPreview {
+  width: 10px;
+  height: 10px;
+  background: #ffa9e7;
+  display: inline-block;
+  margin: 5px;
+}
+#leftPreview {
+  width: 10px;
+  height: 10px;
+  background: #a049ed;
+  display: inline-block;
+  margin: 5px;
+}
+#obsPreview {
+  width: 10px;
+  height: 10px;
+  background: black;
+  display: inline-block;
+  margin: 5px;
 }

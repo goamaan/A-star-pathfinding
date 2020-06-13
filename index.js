@@ -66,8 +66,8 @@ function Astar() {
 
     if (current === end) {
       noLoop();
-      console.log("DONE!");
-      div = createDiv("<p>Solved!</p>");
+      console.log('DONE!');
+      div = createDiv('<p>Solved!</p>');
       div.position(window.innerWidth / 2 - 20, window.innerHeight - 100);
     }
 
@@ -93,9 +93,9 @@ function Astar() {
       }
     }
   } else {
-    console.log("No Solution!");
+    console.log('No Solution!');
     noLoop();
-    div = createDiv("<p>No Solution!</p>");
+    div = createDiv('<p>No Solution!</p>');
     div.position(window.innerWidth / 2 - 20, window.innerHeight - 100);
     return;
   }
@@ -112,11 +112,11 @@ function drawMap() {
   }
 
   for (var i = 0; i < closedSet.length; i++) {
-    closedSet[i].show(color("#FFA9E7"));
+    closedSet[i].show(color('#FFA9E7'));
   }
 
   for (var i = 0; i < openSet.heap.length; i++) {
-    openSet.heap[i].show(color("#A049ED"));
+    openSet.heap[i].show(color('#A049ED'));
   }
 }
 
@@ -130,24 +130,24 @@ function drawPath() {
     temp = temp.parent;
   }
 
-  //   for (var i = 0; i < path.length; i++) {
-  //     path[i].show(color(0, 0, 255));
-  //   }
+  // for (var i = 0; i < path.length; i++) {
+  //   path[i].show(color(0, 0, 255));
+  // }
 
-  //Drawing path as continuous line
+  // Drawing path as continuous line
   noFill();
-  stroke("#21FF3B");
+  stroke('#21FF3B');
   strokeWeight(w / 4);
   beginShape();
   for (var i = 0; i < path.length; i++) {
-    vertex(path[i].x * w + w / 2, path[i].y * h + h / 2);
+    curveVertex(path[i].x * w + w / 2, path[i].y * h + h / 2);
   }
   endShape();
 }
 
 function setup() {
   cnv = createCanvas(600, 600);
-  cnv.parent("container");
+  cnv.parent('container');
   centerCanvas();
   setupMap();
   //   button = createButton("Reset");
